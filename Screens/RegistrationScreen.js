@@ -10,8 +10,11 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   ImageBackground,
+  Image,
   Alert,
 } from "react-native";
+import BG from "../assets/img/BG.jpg";
+import LOGOSVG from "../assets/add-icon.svg";
 
 export const Registration = () => {
   const [login, onChangeLogin] = useState("");
@@ -30,10 +33,7 @@ export const Registration = () => {
   };
 
   return (
-    <ImageBackground
-      style={styles.imageBg}
-      source={require("../assets/img/BG.jpg")}
-    >
+    <ImageBackground style={styles.imageBg} source={BG}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
           <KeyboardAvoidingView
@@ -41,6 +41,16 @@ export const Registration = () => {
             keyboardVerticalOffset={keyboardVerticalOffset}
           >
             <View style={styles.form}>
+              <View style={styles.photoWrap}>
+                {/* <Image style={{ width: 120, height: 120, borderRadius: 16 }} /> */}
+                <TouchableOpacity
+                  style={{ position: "absolute", bottom: 14, right: -14 }}
+                >
+                  <View>
+                    <LOGOSVG />
+                  </View>
+                </TouchableOpacity>
+              </View>
               <Text style={styles.formTitle}>Реєстрація</Text>
               <View>
                 <TextInput
@@ -184,5 +194,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
+  },
+  photoWrap: {
+    width: 120,
+    height: 120,
+    backgroundColor: "#F6F6F6",
+    position: "absolute",
+    top: "-19%",
+    left: "37%",
+    borderRadius: 16,
   },
 });
