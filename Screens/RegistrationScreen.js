@@ -32,6 +32,13 @@ export const Registration = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const onLogin = () => {
+    Alert.alert(
+      "Credentials",
+      `name : ${login} , email: ${email},  password: ${password}`
+    );
+  };
+
   return (
     <ImageBackground style={styles.imageBg} source={BG}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -112,7 +119,8 @@ export const Registration = () => {
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-                onPress={() => Alert.alert("Work")}
+                // onPress={() => Alert.alert("Work")}
+                onPress={onLogin}
                 activeOpacity={0.7}
                 style={styles.btn}
               >
