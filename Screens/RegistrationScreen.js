@@ -119,7 +119,6 @@ export const Registration = () => {
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-                // onPress={() => Alert.alert("Work")}
                 onPress={onLogin}
                 activeOpacity={0.7}
                 style={styles.btn}

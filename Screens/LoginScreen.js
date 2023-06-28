@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import BG from "../assets/img/BG.jpg";
 
-export const Login = ({navigation}) => {
+export const Login = ({ navigation }) => {
   const [email, onChangeEmail] = useState("");
   const [password, onChangePassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
@@ -26,6 +26,10 @@ export const Login = ({navigation}) => {
 
   const togleShowPassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const onLogin = () => {
+    Alert.alert("Credentials", ` email: ${email}`);
   };
 
   return (
@@ -82,7 +86,7 @@ export const Login = ({navigation}) => {
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-                onPress={() => Alert.alert("Work")}
+                onPress={onLogin}
                 activeOpacity={0.7}
                 style={styles.btn}
               >
