@@ -13,6 +13,7 @@ import {
   Alert,
 } from "react-native";
 import BG from "../assets/img/BG.jpg";
+import { Ionicons } from "@expo/vector-icons";
 
 export const Login = ({ navigation }) => {
   const [email, onChangeEmail] = useState("");
@@ -29,7 +30,27 @@ export const Login = ({ navigation }) => {
   };
 
   const onLogin = () => {
-    Alert.alert("Credentials", ` email: ${email}`);
+    if (!email || !password) {
+      Alert.alert("Поле не може бути пустим!");
+      return;
+    }
+
+    if (!validEmail(email)) {
+      Alert.alert("Невірний формат електронної пошти!");
+      return;
+    }
+    navigation.navigate("Home", { screen: "PostsScreen" });
+    clearForm();
+  };
+
+  const validEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const clearForm = () => {
+    onChangeEmail("");
+    onChangePassword("");
   };
 
   return (
@@ -57,6 +78,7 @@ export const Login = ({ navigation }) => {
                   onFocus={() => setIsFocusedEmail(true)}
                   onBlur={() => setIsFocusedEmail(false)}
                   placeholder="Адреса електронної пошти"
+                  keyboardType="email-address"
                 />
               </View>
               <View style={{ position: "relative" }}>
@@ -81,7 +103,19 @@ export const Login = ({ navigation }) => {
                   style={styles.showPasswordWrap}
                 >
                   <Text style={styles.showPasswordTitle}>
-                    {showPassword ? "Показати" : "Приховати"}
+                    {showPassword ? (
+                      <Ionicons
+                        name="ios-eye-outline"
+                        size={22}
+                        color="black"
+                      />
+                    ) : (
+                      <Ionicons
+                        name="ios-eye-off-sharp"
+                        size={22}
+                        color="black"
+                      />
+                    )}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -94,7 +128,7 @@ export const Login = ({ navigation }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => Alert.alert("Work ask")}
+                onPress={() => navigation.navigate("Registration")}
               >
                 <Text style={styles.linkTitle}>
                   Не має акаунта? Зареєструватися

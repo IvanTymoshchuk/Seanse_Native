@@ -14,9 +14,9 @@ import {
   Alert,
 } from "react-native";
 import BG from "../assets/img/BG.jpg";
-import LOGOSVG from "../assets/add-icon.svg";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-export const Registration = () => {
+const Registration = ({ navigation }) => {
   const [login, onChangeLogin] = useState("");
   const [email, onChangeEmail] = useState("");
   const [password, onChangePassword] = useState("");
@@ -33,10 +33,28 @@ export const Registration = () => {
   };
 
   const onLogin = () => {
-    Alert.alert(
-      "Credentials",
-      `name : ${login} , email: ${email},  password: ${password}`
-    );
+    if (!login || !email || !password) {
+      Alert.alert("Поле не може бути пустим!");
+      return;
+    }
+
+    if (!validEmail(email)) {
+      Alert.alert("Невірний формат електронної пошти!");
+      return;
+    }
+    navigation.navigate("Home", { screen: "PostsScreen" });
+    clearForm();
+  };
+
+  const validEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const clearForm = () => {
+    onChangeLogin("");
+    onChangeEmail("");
+    onChangePassword("");
   };
 
   return (
@@ -52,9 +70,10 @@ export const Registration = () => {
                 {/* <Image style={{ width: 120, height: 120, borderRadius: 16 }} /> */}
                 <TouchableOpacity
                   style={{ position: "absolute", bottom: 14, right: -14 }}
+                  onPress={() => Alert.alert("Працює")}
                 >
                   <View>
-                    <LOGOSVG />
+                    <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
                   </View>
                 </TouchableOpacity>
               </View>
@@ -90,6 +109,7 @@ export const Registration = () => {
                   onFocus={() => setIsFocusedEmail(true)}
                   onBlur={() => setIsFocusedEmail(false)}
                   placeholder="Адреса електронної пошти"
+                  keyboardType="email-address"
                 />
               </View>
               <View style={{ position: "relative" }}>
@@ -114,7 +134,19 @@ export const Registration = () => {
                   style={styles.showPasswordWrap}
                 >
                   <Text style={styles.showPasswordTitle}>
-                    {showPassword ? "Показати" : "Приховати"}
+                    {showPassword ? (
+                      <Ionicons
+                        name="ios-eye-outline"
+                        size={22}
+                        color="black"
+                      />
+                    ) : (
+                      <Ionicons
+                        name="ios-eye-off-sharp"
+                        size={22}
+                        color="black"
+                      />
+                    )}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -127,7 +159,7 @@ export const Registration = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => Alert.alert("Work ask")}
+                onPress={() => navigation.navigate("Login")}
               >
                 <Text style={styles.linkTitle}>Вже є аккаунт? Увійти</Text>
               </TouchableOpacity>
@@ -212,3 +244,5 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
 });
+
+export default Registration;

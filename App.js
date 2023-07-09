@@ -1,25 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import { Registration } from "./Screens/RegistrationScreen";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Registration from "./Screens/RegistrationScreen";
 import { Login } from "./Screens/LoginScreen";
 
+const Satck = createStackNavigator(); // вказує на групу навігаторів
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Registration />
-      {/* <Login /> */}
-
+    <>
+      <NavigationContainer>
+        <Satck.Navigator initialRouteName="Registration">
+          <Satck.Screen name="Registration" component={Registration} />
+          <Satck.Screen name="Login" component={Login} />
+        </Satck.Navigator>
+      </NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
