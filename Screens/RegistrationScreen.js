@@ -13,8 +13,10 @@ import {
   Image,
   Alert,
 } from "react-native";
-import BG from "../assets/img/BG.jpg";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+
+const avatar = require('../assets/img/avatar.jpg');
+const BG = require('../assets/img/BG.jpg');
 
 const Registration = ({ navigation }) => {
   const [login, onChangeLogin] = useState("");
@@ -67,7 +69,10 @@ const Registration = ({ navigation }) => {
           >
             <View style={styles.form}>
               <View style={styles.photoWrap}>
-                {/* <Image style={{ width: 120, height: 120, borderRadius: 16 }} /> */}
+                <Image
+                  style={{ width: 120, height: 120, borderRadius: 16 }}
+                  source={avatar}
+                />
                 <TouchableOpacity
                   style={{ position: "absolute", bottom: 14, right: -14 }}
                   onPress={() => Alert.alert("Працює")}
